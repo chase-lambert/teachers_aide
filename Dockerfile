@@ -11,7 +11,7 @@ COPY public ./public
 RUN rustup target add wasm32-unknown-unknown
 RUN cargo leptos build --release
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 WORKDIR /app
 
 COPY --from=builder /app/target/release/teachers_aide /app/target/
