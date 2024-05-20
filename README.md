@@ -1,4 +1,4 @@
-# Teacher's AIde
+# Teacher's \_**Ai**\_de
 
 ## Running project
 
