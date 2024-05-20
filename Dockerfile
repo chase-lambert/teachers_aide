@@ -20,7 +20,7 @@ RUN npm install
 ENV LEPTOS_TAILWIND_VERSION="v3.4.3"
 RUN cargo leptos build --release
 
-COPY /target/release/teachers_aide /target/
+RUN cp target/release/teachers_aide target/
 
 ENV LEPTOS_OUTPUT_NAME="teachers_aide"
 ENV LEPTOS_SITE_ROOT="site"
