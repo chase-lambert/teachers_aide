@@ -8,8 +8,8 @@ COPY Cargo.toml Cargo.lock ./
 COPY src ./src
 COPY public ./public
 
-RUN cargo leptos build --release
 RUN rustup target add wasm32-unknown-unknown
+RUN cargo leptos build --release
 
 FROM debian:buster-slim
 WORKDIR /app
