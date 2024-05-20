@@ -1,4 +1,4 @@
-# Teacher's **_Ai_**de
+# Teacher's <strong><em>Ai</em></strong>de
 
 ## Running project
 
