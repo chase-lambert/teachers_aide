@@ -1,8 +1,7 @@
 FROM rustlang/rust:nightly as builder
 
-WORKDIR /work
-
-COPY . .
+WORKDIR /
+COPY . /
 
 RUN rustup target add wasm32-unknown-unknown --toolchain nightly
 RUN cargo install cargo-leptos
@@ -18,22 +17,7 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
 RUN npm install
 
-CMD /bin/bash
-
-
-FROM debian:bullseye-slim
-
-RUN apt-get update && apt-get install -y extra-runtime-dependencies && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /work
-
-COPY . .
-
-RUN mkdir -p target/site
-
 RUN cargo leptos build --release
-
-from scratch as app
 
 ENV LEPTOS_OUTPUT_NAME=teachers_aide
 ENV LEPTOS_SITE_ROOT=site
@@ -42,13 +26,7 @@ ENV LEPTOS_SITE_ADDR="0.0.0.0:3000"
 ENV LEPTOS_RELOAD_PORT=3001
 ENV LEPTOS_TAILWIND_VERSION="v3.4.3"
 
-USER 10001
+EXPOSE 3000
 
-WORKDIR /app
-
-COPY --chown=10001:10001 --from=builder /work/target/site/ ./site/
-COPY --chown=10001:10001 --from=builder /work/target/release/teachers_aide .
-
-EXPOSE 3000:3000
-
-ENTRYPOINT [ "/app/teachers_aide" ]
+CMD ["cp", "target/release/teachers_aide", "target/"]
+CMD ["./target/teachers_aide"]
