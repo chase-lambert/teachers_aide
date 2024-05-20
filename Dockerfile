@@ -9,6 +9,7 @@ COPY src ./src
 COPY public ./public
 
 RUN cargo leptos build --release
+RUN rustup target add wasm32-unknown-unknown
 
 FROM debian:buster-slim
 WORKDIR /app
