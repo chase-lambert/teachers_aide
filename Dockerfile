@@ -12,7 +12,7 @@ COPY public ./public
 
 RUN cargo leptos build --release
 
-EXPOSE 10000
+EXPOSE 4000
 
 CMD ["cp", "target/release/teachers_aide", "target/"]
 CMD ["./target/teachers_aide"]
