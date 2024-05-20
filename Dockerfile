@@ -1,7 +1,7 @@
 FROM rustlang/rust:nightly as builder
 
-WORKDIR /
-COPY . /
+WORKDIR /usr/app
+COPY ./ /usr/app
 
 RUN rustup target add wasm32-unknown-unknown --toolchain nightly
 RUN cargo install cargo-leptos
@@ -15,7 +15,8 @@ RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
-RUN npm install
+RUN npm install -g yarn
+RUN yarn install
 
 RUN cargo leptos build --release
 
@@ -28,5 +29,5 @@ ENV LEPTOS_TAILWIND_VERSION="v3.4.3"
 
 EXPOSE 3000
 
-CMD ["cp", "target/release/teachers_aide", "target/"]
-CMD ["./target/teachers_aide"]
+CMD ["cp", "/usr/app/target/release/teachers_aide", "/usr/app/target/"]
+CMD ["./usr/app/target/teachers_aide"]
